@@ -26,7 +26,12 @@ app.get('/', (req, res) => {
     version: '1.0.0',
     endpoints: {
       health: '/health',
-      auth: '/api/auth/login'
+      auth: '/api/auth/login',
+      submissions: {
+        create: 'POST /api/submissions',
+        list: 'GET /api/submissions/my',
+        detail: 'GET /api/submissions/:id'
+      }
     },
     documentation: 'API documentation will be available soon'
   });
@@ -34,6 +39,7 @@ app.get('/', (req, res) => {
 
 // 路由配置
 app.use('/api/auth', require('./routes/auth'));
+app.use('/api/submissions', require('./routes/submissions'));
 
 // 数据库连接
 mongoose.connect(process.env.MONGODB_URI, {
@@ -87,4 +93,7 @@ app.listen(PORT, () => {
   console.log('- GET /');
   console.log('- GET /health');
   console.log('- POST /api/auth/login');
+  console.log('- POST /api/submissions');
+  console.log('- GET /api/submissions/my');
+  console.log('- GET /api/submissions/:id');
 }); 
